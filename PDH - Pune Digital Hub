@@ -1,130 +1,1274 @@
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>Pune Digital Hub - PDH</title>
-<style>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Pune Digital Hub portal for departmental digital applications and BI reports."
+    >
+
+    <title>Pune Digital Hub - PDH</title>
+
+    <style>
+        :root {
+            --primary-color: #152ea9;
+            --primary-dark: #0d2180;
+            --secondary-color: #0078d4;
+            --secondary-dark: #005ea6;
+            --background-color: #f4f6f8;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --muted-text: #667085;
+            --border-color: #dfe3e8;
+            --success-color: #107c10;
+            --warning-color: #d83b01;
+            --shadow:
+                0 4px 14px rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f6f8;
-            color: #333;
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
         }
-        header {
-            background-color: #152EA9;
-            color: white;
-            padding: 20px;
+
+        button,
+        input,
+        a {
+            font: inherit;
+        }
+
+        /* Header */
+
+        .site-header {
+            position: relative;
+            padding: 34px 20px;
+            color: #ffffff;
             text-align: center;
-            height: 100px;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-color),
+                    #0878ce
+                );
+            overflow: hidden;
         }
-        .intro {
+
+        .site-header::before {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -90px;
+            width: 230px;
+            height: 230px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .site-header::after {
+            content: "";
+            position: absolute;
+            bottom: -120px;
+            left: -90px;
+            width: 260px;
+            height: 260px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .site-header h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 5vw, 2.7rem);
+            line-height: 1.2;
+        }
+
+        .site-header p {
+            margin: 10px 0 0;
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            opacity: 0.95;
+        }
+
+        /* Main container */
+
+        .main-container {
+            width: min(1200px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 40px;
+        }
+
+        /* Search */
+
+        .search-panel {
             padding: 20px;
-            text-align: center;
-            font-size: 1.1em;
+            margin-bottom: 20px;
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
         }
-        .app-container {
+
+        .search-title {
+            margin: 0 0 12px;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        .search-row {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 10px;
+            align-items: center;
+            gap: 10px;
         }
-        .app-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin: 15px;
+
+        .search-box {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        #appSearch {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 45px;
+            color: var(--text-color);
+            background: #ffffff;
+            border: 1px solid #b8c1cc;
+            border-radius: 10px;
+            outline: none;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        #appSearch:focus {
+            border-color: var(--secondary-color);
+            box-shadow:
+                0 0 0 3px rgba(0, 120, 212, 0.16);
+        }
+
+        .clear-button {
+            min-height: 48px;
+            padding: 10px 18px;
+            color: #ffffff;
+            background-color: var(--primary-color);
+            border: 0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .clear-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .search-status {
+            margin: 12px 0 0;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+        }
+
+        /* Department navigation */
+
+        .department-navigation {
+            display: flex;
+            gap: 10px;
+            padding: 4px 0 18px;
+            margin-bottom: 4px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .department-navigation button {
+            flex: 0 0 auto;
+            padding: 10px 16px;
+            color: var(--primary-color);
+            background: #ffffff;
+            border: 1px solid var(--primary-color);
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            transition:
+                color 0.2s ease,
+                background-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .department-navigation button:hover {
+            color: #ffffff;
+            background-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        /* Department sections */
+
+        .department-section {
+            margin: 0 0 20px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .department-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 18px 22px;
+            color: #ffffff;
+            background-color: var(--primary-color);
+            border: 0;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1.15rem;
+            font-weight: 700;
+            transition: background-color 0.2s ease;
+        }
+
+        .department-header:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .department-header:focus-visible {
+            outline: 3px solid #ffbf47;
+            outline-offset: -4px;
+        }
+
+        .department-header.production-header {
+            background-color: #c35a00;
+        }
+
+        .department-header.production-header:hover {
+            background-color: #9e4900;
+        }
+
+        .department-header.quality-header {
+            background-color: #107c10;
+        }
+
+        .department-header.quality-header:hover {
+            background-color: #0b5f0b;
+        }
+
+        .department-header.lnd-header {
+            background-color: #5c2d91;
+        }
+
+        .department-header.lnd-header:hover {
+            background-color: #44206d;
+        }
+
+        .department-header.ehs-header {
+            background-color: #b14600;
+        }
+
+        .department-header.ehs-header:hover {
+            background-color: #853500;
+        }
+
+        .department-header.csd-header {
+            background-color: #006b6b;
+        }
+
+        .department-header.csd-header:hover {
+            background-color: #005151;
+        }
+
+        .department-header.bi-header {
+            background-color: #6b3475;
+        }
+
+        .department-header.bi-header:hover {
+            background-color: #502758;
+        }
+
+        .department-arrow {
+            flex: 0 0 auto;
+            font-size: 1rem;
+            transition: transform 0.25s ease;
+        }
+
+        .department-header[aria-expanded="true"]
+        .department-arrow {
+            transform: rotate(180deg);
+        }
+
+        .department-content {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
             padding: 20px;
-            width: 300px;
-            transition: transform 0.2s;
         }
+
+        .department-content.collapsed {
+            display: none;
+        }
+
+        /* Application cards */
+
+        .app-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 20px;
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 12px;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
         .app-card:hover {
-            transform: scale(1.03);
+            transform: translateY(-4px);
+            border-color: #a7c7e7;
+            box-shadow:
+                0 8px 24px rgba(15, 23, 42, 0.12);
         }
+
         .app-title {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #0078d4;
+            margin: 0 0 10px;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            line-height: 1.4;
         }
+
         .app-description {
-            font-size: 0.95em;
-            margin-bottom: 15px;
+            flex: 1;
+            margin: 0 0 18px;
+            color: var(--muted-text);
+            font-size: 0.95rem;
+            line-height: 1.55;
         }
+
         .app-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            min-height: 42px;
+            padding: 10px 16px;
+            color: #ffffff;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
             text-decoration: none;
-            color: #0078d4;
-            font-weight: bold;
+            font-weight: 700;
+            transition:
+                background-color 0.2s ease,
+                transform 0.2s ease;
         }
-/* Default: hide description on mobile */
-@media (max-width: 768px) {
-    .app-description {
-        display: none;
-    }
 
-    .app-card:hover .app-description {
-        display: block;
-        background-color: #f0f0f0;
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
-}
+        .app-link:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-1px);
+        }
 
+        .app-link:focus-visible {
+            outline: 3px solid #ffbf47;
+            outline-offset: 3px;
+        }
+
+        .placeholder-card {
+            border-top-color: #98a2b3;
+        }
+
+        .placeholder-label {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 7px 12px;
+            color: #475467;
+            background: #f2f4f7;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .report-link-placeholder {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            min-height: 42px;
+            padding: 10px 16px;
+            color: #667085;
+            background-color: #eaecf0;
+            border-radius: 8px;
+            cursor: not-allowed;
+            font-weight: 700;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* No-results message */
+
+        .no-results {
+            display: none;
+            padding: 30px 20px;
+            margin-top: 10px;
+            color: var(--muted-text);
+            background: #ffffff;
+            border: 1px dashed #98a2b3;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        .no-results h2 {
+            margin: 0 0 8px;
+            color: var(--primary-color);
+            font-size: 1.25rem;
+        }
+
+        .no-results p {
+            margin: 0;
+        }
+
+        /* Footer */
+
+        .site-footer {
+            padding: 20px;
+            color: #ffffff;
+            background-color: var(--primary-color);
+            text-align: center;
+        }
+
+        .site-footer p {
+            margin: 0;
+        }
+
+        /* Tablet */
+
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 28px 16px;
+            }
+
+            .main-container {
+                width: min(100% - 24px, 1200px);
+                padding-top: 20px;
+            }
+
+            .search-panel {
+                padding: 16px;
+            }
+
+            .search-row {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .clear-button {
+                width: 100%;
+            }
+
+            .department-header {
+                padding: 16px;
+                font-size: 1.05rem;
+            }
+
+            .department-content {
+                grid-template-columns: 1fr;
+                padding: 14px;
+            }
+
+            .app-card {
+                padding: 18px;
+            }
+        }
+
+        /* Small mobile */
+
+        @media (max-width: 420px) {
+            .site-header h1 {
+                font-size: 1.65rem;
+            }
+
+            .site-header p {
+                font-size: 0.9rem;
+            }
+
+            .main-container {
+                width: min(100% - 16px, 1200px);
+            }
+
+            .department-header {
+                padding: 14px;
+            }
+
+            .department-content {
+                padding: 10px;
+            }
+
+            .app-card {
+                padding: 16px;
+            }
+
+            .app-link {
+                width: 100%;
+            }
+        }
+
+        /* Reduced motion accessibility */
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
-<body>
-<header>
-    <!-- <img src="./Assets/OIP.webp" alt="Logo" width="200" height="100"> -->
-<h1>Pune Digital Hub - PDH</h1>
-<p>Building a smart & efficient future...</p>
-</header>
-<div class="intro">
-    <!-- Building a Smarter Tomorrow — One Digital Solution at a Time. -->
-    </div>
-<div class="app-container">
-<div class="app-card">
-<div class="app-title">🚗 Vehicle Reporting System</div>
-<div class="app-description">Vehicle entry/exit tracking with real-time alerts and daily reports, improving logistics visibility.</div>
-<a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/503c2871-b81e-42af-88bf-f905210229eb?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&source=sharebutton&sourcetime=1756196511805">Open App</a>
-</div>
-<div class="app-card">
-<div class="app-title">🖼️ Chiller Photo Storage App</div>
-<div class="app-description">Centralized image repository with searchable, tagged documentation for better traceability across production stages.</div>
-<a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/6530289a-2d5c-48ce-81da-e572f33f1c85?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&source=sharebutton&sourcetime=1756196813480">Open App</a>
-</div>
-<div class="app-card">
-<div class="app-title">📏 Calibration Notification System</div>
-<div class="app-description">Enhances calibration reliability with timely alerts and improved compliance tracking.</div>
-<a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/c58cb489-a134-445d-8170-5defbe852b52?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&hint=63da32ef-c43a-47da-bd66-93d7696fa1d9&source=sharebutton&sourcetime=1756196670127#">Open App</a>
-</div>
 
-<div class="app-card">
-<div class="app-title">⚠️ Rejected Instrument Tracker</div>
-<div class="app-description">Tracks rejected instruments and triggers alerts for timely replacement and resolution.</div>
-<a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/c58cb489-a134-445d-8170-5defbe852b52?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&hint=63da32ef-c43a-47da-bd66-93d7696fa1d9&source=sharebutton&sourcetime=1756196670127#">Open App</a>
-</div>
-<div class="app-card">
-<div class="app-title">📝 Audit Findings Tracker</div>
-<div class="app-description">Digital tracker for IMS audit findings with real-time updates, notifications, and dashboards.</div>
-<a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/e6c204f0-d4c5-41aa-a200-1a90b1bcb47a?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&hint=5a4cc043-25ea-412f-a8a8-a3a12fed233c&source=sharebutton&sourcetime=1756196485362#">Open App</a>
-</div>
-<div class="app-card">
-<div class="app-title">📣 Customer Complaints Tracker</div>
-<div class="app-description">Captures and manages customer complaints digitally to improve resolution time and visibility.</div>
-<a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/e24ebc48-6186-4cf1-9515-83b9c0408630?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&hint=b7632e67-628b-4739-8311-232d09b41ade&sourcetime=1756196706764&source=portal#">Open App</a>
-</div>
-<div class="app-card">
-<div class="app-title">📣O-Tag Status Tracker</div>
-<div class="app-description">Identify and track quality issues or observations during manufacturing or field operations</div>
-<a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/74e6b5f8-caad-441a-9ec1-4ed909f8859a?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&hint=b3eab1fa-5584-4856-aaf9-422f710a8ca1&sourcetime=1759915996642#">Open App</a>
-</div>
-<div class="app-card">
-<div class="app-title">📋 Route Card Digitalization App</div>
-<div class="app-description">Replaces manual route cards with a PowerApps solution integrated with SAP for better traceability.</div>
-<a class="app-link" href="https://apps.powerapps.com/play/e/73f8c556-a575-e3ef-acd6-923a52ff7313/a/81fce0ca-a45e-4b0e-ba24-436180724e01?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&hint=55100ebf-1456-417b-bda7-513dff7a1ae3&source=sharebutton&sourcetime=1756196863242">Open App</a>
-</div>
-</div>
+<body>
+
+    <header class="site-header">
+        <div class="header-content">
+            <h1>Pune Digital Hub - PDH</h1>
+
+            <p>
+                Building a Smart and Efficient Future
+            </p>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <!-- Search -->
+
+        <section
+            class="search-panel"
+            aria-labelledby="searchHeading"
+        >
+            <h2
+                id="searchHeading"
+                class="search-title"
+            >
+                Search Digital Solutions
+            </h2>
+
+            <div class="search-row">
+                <div class="search-box">
+                    <span
+                        class="search-icon"
+                        aria-hidden="true"
+                    >
+                        🔍
+                    </span>
+
+                    <input
+                        type="search"
+                        id="appSearch"
+                        placeholder="Search apps, reports, departments or descriptions..."
+                        aria-label="Search applications and reports"
+                        autocomplete="off"
+                    >
+                </div>
+
+                <button
+                    type="button"
+                    class="clear-button"
+                    id="clearSearch"
+                >
+                    Clear Search
+                </button>
+            </div>
+
+            <p
+                id="searchStatus"
+                class="search-status"
+                aria-live="polite"
+            >
+                Showing all digital solutions.
+            </p>
+        </section>
+
+        <!-- Quick department navigation -->
+
+        <nav
+            class="department-navigation"
+            aria-label="Department navigation"
+        >
+            <button
+                type="button"
+                data-scroll-target="quality-section"
+            >
+                ✅ Quality
+            </button>
+
+            <button
+                type="button"
+                data-scroll-target="production-section"
+            >
+                🏭 Production
+            </button>
+
+            <button
+                type="button"
+                data-scroll-target="lnd-section"
+            >
+                🚗 L&amp;D
+            </button>
+
+            <button
+                type="button"
+                data-scroll-target="ehs-section"
+            >
+                🦺 EHS
+            </button>
+
+            <button
+                type="button"
+                data-scroll-target="csd-section"
+            >
+                🤝 CSD
+            </button>
+
+            <button
+                type="button"
+                data-scroll-target="bi-section"
+            >
+                📊 BI Reports
+            </button>
+        </nav>
+
+        <!-- QUALITY -->
+
+        <section
+            id="quality-section"
+            class="department-section"
+            data-department="quality"
+        >
+            <button
+                type="button"
+                class="department-header quality-header"
+                aria-expanded="true"
+                aria-controls="quality-content"
+            >
+                <span>✅ Quality</span>
+
+                <span
+                    class="department-arrow"
+                    aria-hidden="true"
+                >
+                    ▼
+                </span>
+            </button>
+
+            <div
+                id="quality-content"
+                class="department-content"
+            >
+                <article class="app-card">
+                    <h3 class="app-title">
+                        📏 Calibration Notification System
+                    </h3>
+
+                    <p class="app-description">
+                        Enhances calibration reliability with timely
+                        alerts and improved compliance tracking.
+                    </p>
+                    <a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/c58cb489-a134-445d-8170-5defbe852b52?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&amp;hint=63da32ef-c43a-47da-bd66-93d7696fa1d9&amp;source=sharebutton&amp;sourcetime=1756196670127#">Open App</a>
+
+                </article>
+
+                <article class="app-card">
+                    <h3 class="app-title">
+                        ⚠️ Rejected Instrument Tracker
+                    </h3>
+
+                    <p class="app-description">
+                        Tracks rejected instruments and triggers alerts
+                        for timely replacement and resolution.
+                    </p>
+
+                    <a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/c58cb489-a134-445d-8170-5defbe852b52?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&amp;hint=63da32ef-c43a-47da-bd66-93d7696fa1d9&amp;source=sharebutton&amp;sourcetime=1756196670127#">Open App</a>
+                </article>
+
+                <article class="app-card">
+                    <h3 class="app-title">
+                        📣 Chiller Field Issue Tracker
+                    </h3>
+
+                    <p class="app-description">
+                        Captures and manages customer complaints
+                        digitally to improve resolution time and
+                        visibility.
+                    </p>
+
+                    <a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/e24ebc48-6186-4cf1-9515-83b9c0408630?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&amp;hint=b7632e67-628b-4739-8311-232d09b41ade&amp;sourcetime=1756196706764&amp;source=portal#">Open App</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- PRODUCTION -->
+
+        <section
+            id="production-section"
+            class="department-section"
+            data-department="production manufacturing shop floor"
+        >
+            <button
+                type="button"
+                class="department-header production-header"
+                aria-expanded="true"
+                aria-controls="production-content"
+            >
+                <span>🏭 Shop Floor</span>
+
+                <span
+                    class="department-arrow"
+                    aria-hidden="true"
+                >
+                    ▼
+                </span>
+            </button>
+
+            <div
+                id="production-content"
+                class="department-content"
+            >
+                
+
+                <article class="app-card">
+                    <h3 class="app-title">
+                        🖼️ Chiller Photo Storage App
+                    </h3>
+
+                    <p class="app-description">
+                        Centralized image repository with searchable,
+                        tagged documentation for improved production
+                        traceability.
+                    </p>
+
+                    <a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/6530289a-2d5c-48ce-81da-e572f33f1c85?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&amp;source=sharebutton&amp;sourcetime=1756196813480">Open App</a>
+                </article>
+
+                <article class="app-card">
+                    <h3 class="app-title">
+                        📋 Route Card Digitalization App
+                    </h3>
+
+                    <p class="app-description">
+                        Replaces manual route cards with a Power Apps
+                        solution integrated with SAP for improved
+                        traceability.
+                    </p>
+
+                    <a class="app-link" href="https://apps.powerapps.com/play/e/73f8c556-a575-e3ef-acd6-923a52ff7313/a/81fce0ca-a45e-4b0e-ba24-436180724e01?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&amp;hint=55100ebf-1456-417b-bda7-513dff7a1ae3&amp;source=sharebutton&amp;sourcetime=1756196863242">Open App</a>
+                </article>
+                <article class="app-card">
+                    <h3 class="app-title">
+                        🏷️ O-Tag Status Tracker
+                    </h3>
+
+                    <p class="app-description">
+                        Identifies and tracks quality issues or
+                        observations during manufacturing and field
+                        operations.
+                    </p>
+
+                    <a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/74e6b5f8-caad-441a-9ec1-4ed909f8859a?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&amp;hint=b3eab1fa-5584-4856-aaf9-422f710a8ca1&amp;sourcetime=1759915996642#">Open App</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- L&D -->
+
+        <section
+            id="lnd-section"
+            class="department-section"
+            data-department="learning development l&d training"
+        >
+            <button
+                type="button"
+                class="department-header lnd-header"
+                aria-expanded="true"
+                aria-controls="lnd-content"
+            >
+                <span>🚗 logistics &amp; Development (L&amp;D)</span>
+
+                <span
+                    class="department-arrow"
+                    aria-hidden="true"
+                >
+                    ▼
+                </span>
+            </button>
+
+            <div
+                id="lnd-content"
+                class="department-content"
+            >
+                <article class="app-card">
+                    <h3 class="app-title">
+                        🚗 Vehicle Reporting System
+                    </h3>
+
+                    <p class="app-description">
+                        Vehicle entry and exit tracking with real-time
+                        alerts and daily reports, improving logistics
+                        visibility.
+                    </p>
+
+                    <a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/503c2871-b81e-42af-88bf-f905210229eb?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&amp;source=sharebutton&amp;sourcetime=1756196511805">Open App</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- EHS -->
+
+        <section
+            id="ehs-section"
+            class="department-section"
+            data-department="ehs environment health safety"
+        >
+            <button
+                type="button"
+                class="department-header ehs-header"
+                aria-expanded="true"
+                aria-controls="ehs-content"
+            >
+                <span>🦺 Environment, Health &amp; Safety (EHS)</span>
+
+                <span
+                    class="department-arrow"
+                    aria-hidden="true"
+                >
+                    ▼
+                </span>
+            </button>
+
+            <div
+                id="ehs-content"
+                class="department-content"
+            >
+                <article class="app-card">
+                    <h3 class="app-title">
+                        📝 Audit Findings Tracker
+                    </h3>
+
+                    <p class="app-description">
+                        Digital tracker for IMS audit findings with
+                        real-time updates, notifications and dashboards.
+                    </p>
+
+                    <a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/e6c204f0-d4c5-41aa-a200-1a90b1bcb47a?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&amp;hint=5a4cc043-25ea-412f-a8a8-a3a12fed233c&amp;source=sharebutton&amp;sourcetime=1756196485362#">Open App</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- CSD -->
+
+<section
+    id="csd-section"
+    class="department-section"
+    data-department="csd customer service customer feedback customer visit"
+>
+    <button
+        type="button"
+        class="department-header csd-header"
+        aria-expanded="true"
+        aria-controls="csd-content"
+    >
+        <span>🤝 Customer Service Division (CSD)</span>
+
+        <span
+            class="department-arrow"
+            aria-hidden="true"
+        >
+            ▼
+        </span>
+    </button>
+
+    <div
+        id="csd-content"
+        class="department-content"
+    >
+
+        <!-- Customer Feedback Form -->
+
+        <article class="app-card">
+            <h3 class="app-title">
+                📝 Customer Feedback Form
+            </h3>
+
+            <p class="app-description">
+                Digital platform for capturing customer feedback,
+                satisfaction ratings, suggestions, and improvement
+                opportunities.
+            </p>
+
+            <a class="app-link" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=FOLxoe19tkWBoZ6K40WWQfoZgWxZhohFs-wsYmNaSw9UNTc3WkJXRkdMMzZMVjZOMVUzMVNOV01ITC4u&origin=Invitation&channel=1">Open App</a>
+        </article>
+
+        <!-- Online Customer Visit Form -->
+
+        <article class="app-card">
+            <h3 class="app-title">
+                👥 Online Customer Visit Form
+            </h3>
+
+            <p class="app-description">
+                Manage customer visit requests, visit planning,
+                scheduling, and visit documentation digitally.
+            </p>
+
+           <a class="app-link" href="https://apps.powerapps.com/play/e/default-a1f1e214-7ded-45b6-81a1-9e8ae3459641/a/3c35310e-0d8a-4247-baa3-16915fe924b3?tenantId=a1f1e214-7ded-45b6-81a1-9e8ae3459641&hint=961b2d5f-35d2-4ba0-a87f-852396b459ed&sourcetime=1790153484449">Open App</a>
+
+        </article>
+
+    </div>
+
+</section>
+
+        <!-- BI REPORTS -->
+
+<section
+    id="bi-section"
+    class="department-section"
+    data-department="bi reports business intelligence power bi dashboard"
+>
+    <button
+        type="button"
+        class="department-header bi-header"
+        aria-expanded="true"
+        aria-controls="bi-content"
+    >
+        <span>📊 BI Reports</span>
+
+        <span
+            class="department-arrow"
+            aria-hidden="true"
+        >
+            ▼
+        </span>
+    </button>
+
+    <div
+        id="bi-content"
+        class="department-content"
+    >
+
+        <article class="app-card">
+
+            <h3 class="app-title">
+                📊 PDH Executive Dashboard
+            </h3>
+
+            <p class="app-description">
+                Consolidated business intelligence dashboard providing
+                visibility into Revenue, Secure Orders, Backlog,
+                Customer Complaints, Audit Findings and other key KPIs
+                across Pune Digital Hub solutions.
+            </p>
+
+            <a class="app-link" href="https://app.powerbi.com/groups/78e2a755-efae-4ebe-95fa-9d9010eace67/reports/81ff0de9-4aac-464f-8cc7-0bca4df1e3ae/46e751c1ba1698002a93?experience=power-bi&clientSideAuth=0">Open Report</a>
+
+        </article>
+
+    </div>
+
+</section>
+
+        <!-- No search results -->
+
+        <div
+            id="noResults"
+            class="no-results"
+            role="status"
+        >
+            <h2>No matching solution found</h2>
+
+            <p>
+                Try searching by app name, department, report or
+                description.
+            </p>
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>
+            &copy; <span id="currentYear"></span>
+            Pune Digital Hub (PDH)
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput =
+                document.getElementById("appSearch");
+
+            const clearButton =
+                document.getElementById("clearSearch");
+
+            const searchStatus =
+                document.getElementById("searchStatus");
+
+            const noResults =
+                document.getElementById("noResults");
+
+            const departmentSections =
+                document.querySelectorAll(".department-section");
+
+            const departmentHeaders =
+                document.querySelectorAll(".department-header");
+
+            const navigationButtons =
+                document.querySelectorAll(
+                    "[data-scroll-target]"
+                );
+
+            /*
+             * Department expand and collapse
+             */
+            departmentHeaders.forEach(function (header) {
+                header.addEventListener("click", function () {
+                    const contentId =
+                        header.getAttribute("aria-controls");
+
+                    const content =
+                        document.getElementById(contentId);
+
+                    const isExpanded =
+                        header.getAttribute("aria-expanded") ===
+                        "true";
+
+                    header.setAttribute(
+                        "aria-expanded",
+                        String(!isExpanded)
+                    );
+
+                    content.classList.toggle(
+                        "collapsed",
+                        isExpanded
+                    );
+                });
+            });
+
+            /*
+             * Quick department navigation
+             */
+            navigationButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const targetId =
+                        button.getAttribute(
+                            "data-scroll-target"
+                        );
+
+                    const targetSection =
+                        document.getElementById(targetId);
+
+                    const targetHeader =
+                        targetSection.querySelector(
+                            ".department-header"
+                        );
+
+                    const targetContent =
+                        targetSection.querySelector(
+                            ".department-content"
+                        );
+
+                    targetHeader.setAttribute(
+                        "aria-expanded",
+                        "true"
+                    );
+
+                    targetContent.classList.remove("collapsed");
+
+                    targetSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                });
+            });
+
+            /*
+             * Search applications, reports and departments
+             */
+            function filterSolutions() {
+                const query =
+                    searchInput.value
+                        .trim()
+                        .toLowerCase();
+
+                let visibleCardCount = 0;
+
+                departmentSections.forEach(
+                    function (section) {
+                        const departmentKeywords =
+                            (
+                                section.dataset.department || ""
+                            ).toLowerCase();
+
+                        const sectionHeader =
+                            section.querySelector(
+                                ".department-header"
+                            );
+
+                        const sectionContent =
+                            section.querySelector(
+                                ".department-content"
+                            );
+
+                        const cards =
+                            section.querySelectorAll(
+                                ".app-card"
+                            );
+
+                        let sectionHasMatch = false;
+
+                        const departmentMatches =
+                            query !== "" &&
+                            departmentKeywords.includes(query);
+
+                        cards.forEach(function (card) {
+                            const cardText =
+                                card.textContent.toLowerCase();
+
+                            const cardMatches =
+                                query === "" ||
+                                departmentMatches ||
+                                cardText.includes(query);
+
+                            card.classList.toggle(
+                                "hidden",
+                                !cardMatches
+                            );
+
+                            if (cardMatches) {
+                                sectionHasMatch = true;
+                                visibleCardCount++;
+                            }
+                        });
+
+                        section.classList.toggle(
+                            "hidden",
+                            !sectionHasMatch
+                        );
+
+                        if (
+                            query !== "" &&
+                            sectionHasMatch
+                        ) {
+                            sectionHeader.setAttribute(
+                                "aria-expanded",
+                                "true"
+                            );
+
+                            sectionContent.classList.remove(
+                                "collapsed"
+                            );
+                        }
+                    }
+                );
+
+                noResults.classList.toggle(
+                    "visible",
+                    visibleCardCount === 0
+                );
+
+                if (query === "") {
+                    searchStatus.textContent =
+                        "Showing all digital solutions.";
+                } else if (visibleCardCount === 0) {
+                    searchStatus.textContent =
+                        'No results found for "' +
+                        searchInput.value.trim() +
+                        '".';
+                } else {
+                    searchStatus.textContent =
+                        visibleCardCount +
+                        " matching solution" +
+                        (visibleCardCount === 1 ? "" : "s") +
+                        " found.";
+                }
+            }
+
+            searchInput.addEventListener(
+                "input",
+                filterSolutions
+            );
+
+            clearButton.addEventListener(
+                "click",
+                function () {
+                    searchInput.value = "";
+                    filterSolutions();
+                    searchInput.focus();
+                }
+            );
+
+            /*
+             * Allow Escape key to clear search
+             */
+            searchInput.addEventListener(
+                "keydown",
+                function (event) {
+                    if (
+                        event.key === "Escape" &&
+                        searchInput.value !== ""
+                    ) {
+                        searchInput.value = "";
+                        filterSolutions();
+                    }
+                }
+            );
+
+            /*
+             * Set footer year automatically
+             */
+            document.getElementById(
+                "currentYear"
+            ).textContent = new Date().getFullYear();
+
+            filterSolutions();
+        });
+    </script>
+
 </body>
 </html>
