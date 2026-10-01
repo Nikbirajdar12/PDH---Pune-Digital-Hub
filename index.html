@@ -145,18 +145,20 @@
             gap: 10px;
         }
 
-        .search-box {
+        /* .search-box {
             position: relative;
             flex: 1;
         }
 
-        .search-icon {
-            position: absolute;
-            top: 50%;
-            left: 16px;
-            transform: translateY(-50%);
-            pointer-events: none;
-        }
+        .search-icon{
+    position: static;
+    transform:none;
+    padding:0 12px;
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
         #appSearch {
             width: 100%;
@@ -170,7 +172,7 @@
             transition:
                 border-color 0.2s ease,
                 box-shadow 0.2s ease;
-        }
+        } */
 
         #appSearch:focus {
             border-color: var(--secondary-color);
@@ -480,6 +482,130 @@
             margin: 0;
         }
 
+
+.menu-btn {
+    background: #0056b3;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.menu-btn:hover {
+    background: #003f88;
+}
+
+.menu-list {
+    display: none;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    min-width: 220px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.menu-list.show {
+    display: block;
+}
+
+.menu-list button {
+    width: 100%;
+    border: none;
+    background: white;
+    text-align: left;
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.menu-list button:hover {
+    background: #f4f6f8;
+}
+.top-bar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.menu-container{
+    position:relative;
+    flex-shrink:0;
+}
+
+.menu-btn{
+    width:50px;
+    height:50px;
+    padding:0;
+    border:none;
+    border-radius:10px;
+    background:#152ea9;
+    color:#fff;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.search-box-wrapper{
+    display:flex;
+    align-items:center;
+    flex:1;
+    background:#fff;
+    border:1px solid #d0d5dd;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.search-box-wrapper input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding:12px;
+}
+
+.search-icon{
+    padding:0 14px;
+    font-size:18px;
+}
+
+
+.clear-button{
+    border:none;
+    background:#f3f4f6;
+    padding:12px 15px;
+    cursor:pointer;
+}
+
+.menu-list{
+    display:none;
+    position:absolute;
+    top:55px;
+    left:0;
+    min-width:220px;
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+    z-index:1000;
+}
+
+.menu-list.show{
+    display:block;
+}
+
+.menu-list.show{
+    display:block;
+}
+
+.menu-container{
+    position:relative;
+}
+
         /* Tablet */
 
         @media (max-width: 768px) {
@@ -577,103 +703,57 @@
 
     <main class="main-container">
 
-        <!-- Search -->
+        <div class="top-bar">
 
-        <section
-            class="search-panel"
-            aria-labelledby="searchHeading"
-        >
-            <h2
-                id="searchHeading"
-                class="search-title"
-            >
-                Search Digital Solutions
-            </h2>
+    <div class="menu-container">
 
-            <div class="search-row">
-                <div class="search-box">
-                    <span
-                        class="search-icon"
-                        aria-hidden="true"
-                    >
-                        🔍
-                    </span>
+        <button id="menuBtn" class="menu-btn">
+            ☰
+        </button>
 
-                    <input
-                        type="search"
-                        id="appSearch"
-                        placeholder="Search apps, reports, departments or descriptions..."
-                        aria-label="Search applications and reports"
-                        autocomplete="off"
-                    >
-                </div>
+        <div id="menuList" class="menu-list">
 
-                <button
-                    type="button"
-                    class="clear-button"
-                    id="clearSearch"
-                >
-                    Clear Search
-                </button>
-            </div>
+    <button type="button" id="homeBtn">
+        🏠 Home
+    </button>
 
-            <p
-                id="searchStatus"
-                class="search-status"
-                aria-live="polite"
-            >
-                Showing all digital solutions.
-            </p>
-        </section>
+    <button type="button" data-scroll-target="quality-section">✅ Quality</button>
+    <button type="button" data-scroll-target="production-section">🏭 Production</button>
+    <button type="button" data-scroll-target="lnd-section">🚗 L&D</button>
+    <button type="button" data-scroll-target="ehs-section">🦺 EHS</button>
+    <button type="button" data-scroll-target="csd-section">🤝 CSD</button>
+    <button type="button" data-scroll-target="bi-section">📊 BI Reports</button>
 
-        <!-- Quick department navigation -->
+</div>
 
-        <nav
-            class="department-navigation"
-            aria-label="Department navigation"
-        >
-            <button
-                type="button"
-                data-scroll-target="quality-section"
-            >
-                ✅ Quality
-            </button>
+    </div>
+    <div class="search-box-wrapper">
 
-            <button
-                type="button"
-                data-scroll-target="production-section"
-            >
-                🏭 Production
-            </button>
+    <span class="search-icon">🔍</span>
 
-            <button
-                type="button"
-                data-scroll-target="lnd-section"
-            >
-                🚗 L&amp;D
-            </button>
+    <input
+        type="search"
+        id="appSearch"
+        placeholder="Search apps, reports, departments..."
+    >
 
-            <button
-                type="button"
-                data-scroll-target="ehs-section"
-            >
-                🦺 EHS
-            </button>
+    <button
+        type="button"
+        class="clear-button"
+        id="clearSearch"
+    >
+        ✕
+    </button>
 
-            <button
-                type="button"
-                data-scroll-target="csd-section"
-            >
-                🤝 CSD
-            </button>
+</div>
 
-            <button
-                type="button"
-                data-scroll-target="bi-section"
-            >
-                📊 BI Reports
-            </button>
-        </nav>
+
+</div>
+
+</div>
+</div>
+
+
 
         <!-- QUALITY -->
 
@@ -1055,77 +1135,189 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const searchInput =
-                document.getElementById("appSearch");
+       document.addEventListener("DOMContentLoaded", function () {
 
-            const clearButton =
-                document.getElementById("clearSearch");
+    const searchInput =
+        document.getElementById("appSearch");
 
-            const searchStatus =
-                document.getElementById("searchStatus");
+    const clearButton =
+        document.getElementById("clearSearch");
 
-            const noResults =
-                document.getElementById("noResults");
+    const searchStatus =
+        document.getElementById("searchStatus");
 
-            const departmentSections =
-                document.querySelectorAll(".department-section");
+    const noResults =
+        document.getElementById("noResults");
 
-            const departmentHeaders =
-                document.querySelectorAll(".department-header");
+    const departmentSections =
+        document.querySelectorAll(".department-section");
 
-            const navigationButtons =
-                document.querySelectorAll(
-                    "[data-scroll-target]"
-                );
+    const departmentHeaders =
+        document.querySelectorAll(".department-header");
 
-            /*
-             * Department expand and collapse
-             */
-            departmentHeaders.forEach(function (header) {
-                header.addEventListener("click", function () {
-                    const contentId =
-                        header.getAttribute("aria-controls");
+    const navigationButtons =
+        document.querySelectorAll(
+            "[data-scroll-target]"
+        );
 
-                    const content =
-                        document.getElementById(contentId);
+    const menuBtn =
+        document.getElementById("menuBtn");
 
-                    const isExpanded =
-                        header.getAttribute("aria-expanded") ===
-                        "true";
+    const menuList =
+        document.getElementById("menuList");
+    const homeBtn =
+        document.getElementById("homeBtn");
 
-                    header.setAttribute(
-                        "aria-expanded",
-                        String(!isExpanded)
+    /* ==========================
+       MOBILE MENU
+    ========================== */
+
+    if (menuBtn) {
+
+        menuBtn.addEventListener("click", function () {
+            menuList.classList.toggle("show");
+        });
+
+        window.addEventListener("click", function (e) {
+
+            if (
+                !menuBtn.contains(e.target) &&
+                !menuList.contains(e.target)
+            ) {
+
+                menuList.classList.remove("show");
+
+            }
+        });
+
+    }
+
+    /* ==========================
+   HOME BUTTON
+========================== */
+
+if (homeBtn) {
+
+    homeBtn.addEventListener(
+        "click",
+        function () {
+
+            searchInput.value = "";
+
+            departmentSections.forEach(
+                function (section) {
+
+                    section.classList.remove(
+                        "hidden"
                     );
 
-                    content.classList.toggle(
-                        "collapsed",
-                        isExpanded
-                    );
-                });
-            });
-
-            /*
-             * Quick department navigation
-             */
-            navigationButtons.forEach(function (button) {
-                button.addEventListener("click", function () {
-                    const targetId =
-                        button.getAttribute(
-                            "data-scroll-target"
+                    const sectionHeader =
+                        section.querySelector(
+                            ".department-header"
                         );
 
-                    const targetSection =
-                        document.getElementById(targetId);
+                    const sectionContent =
+                        section.querySelector(
+                            ".department-content"
+                        );
+
+                    if (sectionHeader) {
+                        sectionHeader.setAttribute(
+                            "aria-expanded",
+                            "true"
+                        );
+                    }
+
+                    if (sectionContent) {
+                        sectionContent.classList.remove(
+                            "collapsed"
+                        );
+                    }
+
+                }
+            );
+
+            noResults.classList.remove(
+                "visible"
+            );
+
+            searchStatus.textContent =
+                "Showing all digital solutions.";
+
+            menuList.classList.remove(
+                "show"
+            );
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+}
+
+    /* ==========================
+       COLLAPSE / EXPAND SECTION
+    ========================== */
+
+    departmentHeaders.forEach(function (header) {
+
+        header.addEventListener("click", function () {
+
+            const contentId =
+                header.getAttribute("aria-controls");
+
+            const content =
+                document.getElementById(contentId);
+
+            const isExpanded =
+                header.getAttribute("aria-expanded")
+                === "true";
+
+            header.setAttribute(
+                "aria-expanded",
+                String(!isExpanded)
+            );
+
+            content.classList.toggle(
+                "collapsed",
+                isExpanded
+            );
+
+        });
+
+    });
+
+    /* ==========================
+       SHOW ONLY SELECTED DEPT
+    ========================== */
+
+    navigationButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const targetId =
+                button.getAttribute(
+                    "data-scroll-target"
+                );
+
+            departmentSections.forEach(function (section) {
+
+                if (section.id === targetId) {
+
+                    section.classList.remove(
+                        "hidden"
+                    );
 
                     const targetHeader =
-                        targetSection.querySelector(
+                        section.querySelector(
                             ".department-header"
                         );
 
                     const targetContent =
-                        targetSection.querySelector(
+                        section.querySelector(
                             ".department-content"
                         );
 
@@ -1134,156 +1326,271 @@
                         "true"
                     );
 
-                    targetContent.classList.remove("collapsed");
+                    targetContent.classList.remove(
+                        "collapsed"
+                    );
 
-                    targetSection.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-                });
+                } else {
+
+                    section.classList.add(
+                        "hidden"
+                    );
+
+                }
+
             });
 
-            /*
-             * Search applications, reports and departments
-             */
-            function filterSolutions() {
-                const query =
-                    searchInput.value
-                        .trim()
-                        .toLowerCase();
+            const targetSection =
+                document.getElementById(
+                    targetId
+                );
 
-                let visibleCardCount = 0;
+            if (targetSection) {
+
+                targetSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+
+            if (menuList) {
+
+                menuList.classList.remove(
+                    "show"
+                );
+
+            }
+
+            if (searchStatus) {
+
+                searchStatus.textContent =
+                    "Showing " +
+                    button.textContent.trim() +
+                    " solutions.";
+
+            }
+
+        });
+
+    });
+
+    /* ==========================
+       SEARCH
+    ========================== */
+
+    function filterSolutions() {
+
+        const query =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+        let visibleCardCount = 0;
+
+        departmentSections.forEach(
+            function (section) {
+
+                const departmentKeywords =
+                    (
+                        section.dataset
+                            .department || ""
+                    ).toLowerCase();
+
+                const sectionHeader =
+                    section.querySelector(
+                        ".department-header"
+                    );
+
+                const sectionContent =
+                    section.querySelector(
+                        ".department-content"
+                    );
+
+                const cards =
+                    section.querySelectorAll(
+                        ".app-card"
+                    );
+
+                let sectionHasMatch = false;
+
+                const departmentMatches =
+                    query !== "" &&
+                    departmentKeywords.includes(
+                        query
+                    );
+
+                cards.forEach(function (card) {
+
+                    const cardText =
+                        card.textContent.toLowerCase();
+
+                    const cardMatches =
+                        query === "" ||
+                        departmentMatches ||
+                        cardText.includes(query);
+
+                    card.classList.toggle(
+                        "hidden",
+                        !cardMatches
+                    );
+
+                    if (cardMatches) {
+
+                        sectionHasMatch = true;
+                        visibleCardCount++;
+
+                    }
+
+                });
+
+                if (query === "") {
+
+                    section.classList.remove(
+                        "hidden"
+                    );
+
+                } else {
+
+                    section.classList.toggle(
+                        "hidden",
+                        !sectionHasMatch
+                    );
+
+                }
+
+                if (
+                    query !== "" &&
+                    sectionHasMatch
+                ) {
+
+                    sectionHeader.setAttribute(
+                        "aria-expanded",
+                        "true"
+                    );
+
+                    sectionContent.classList.remove(
+                        "collapsed"
+                    );
+
+                }
+
+            }
+        );
+
+        noResults.classList.toggle(
+            "visible",
+            visibleCardCount === 0
+        );
+
+        if (query === "") {
+
+            searchStatus.textContent =
+                "Showing all digital solutions.";
+
+        }
+        else if (
+            visibleCardCount === 0
+        ) {
+
+            searchStatus.textContent =
+                'No results found for "' +
+                searchInput.value.trim() +
+                '".';
+
+        }
+        else {
+
+            searchStatus.textContent =
+                visibleCardCount +
+                " matching solution" +
+                (
+                    visibleCardCount === 1
+                    ? ""
+                    : "s"
+                ) +
+                " found.";
+
+        }
+
+    }
+
+    searchInput.addEventListener(
+        "input",
+        filterSolutions
+    );
+
+    /* ==========================
+       CLEAR SEARCH
+    ========================== */
+
+    clearButton.addEventListener(
+        "click",
+        function () {
+
+            searchInput.value = "";
+
+            departmentSections.forEach(
+                function (section) {
+
+                    section.classList.remove(
+                        "hidden"
+                    );
+
+                }
+            );
+
+            filterSolutions();
+
+            searchInput.focus();
+
+        }
+    );
+
+    /* ==========================
+       ESC TO CLEAR SEARCH
+    ========================== */
+
+    searchInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                searchInput.value !== ""
+            ) {
+
+                searchInput.value = "";
 
                 departmentSections.forEach(
                     function (section) {
-                        const departmentKeywords =
-                            (
-                                section.dataset.department || ""
-                            ).toLowerCase();
 
-                        const sectionHeader =
-                            section.querySelector(
-                                ".department-header"
-                            );
-
-                        const sectionContent =
-                            section.querySelector(
-                                ".department-content"
-                            );
-
-                        const cards =
-                            section.querySelectorAll(
-                                ".app-card"
-                            );
-
-                        let sectionHasMatch = false;
-
-                        const departmentMatches =
-                            query !== "" &&
-                            departmentKeywords.includes(query);
-
-                        cards.forEach(function (card) {
-                            const cardText =
-                                card.textContent.toLowerCase();
-
-                            const cardMatches =
-                                query === "" ||
-                                departmentMatches ||
-                                cardText.includes(query);
-
-                            card.classList.toggle(
-                                "hidden",
-                                !cardMatches
-                            );
-
-                            if (cardMatches) {
-                                sectionHasMatch = true;
-                                visibleCardCount++;
-                            }
-                        });
-
-                        section.classList.toggle(
-                            "hidden",
-                            !sectionHasMatch
+                        section.classList.remove(
+                            "hidden"
                         );
 
-                        if (
-                            query !== "" &&
-                            sectionHasMatch
-                        ) {
-                            sectionHeader.setAttribute(
-                                "aria-expanded",
-                                "true"
-                            );
-
-                            sectionContent.classList.remove(
-                                "collapsed"
-                            );
-                        }
                     }
                 );
 
-                noResults.classList.toggle(
-                    "visible",
-                    visibleCardCount === 0
-                );
+                filterSolutions();
 
-                if (query === "") {
-                    searchStatus.textContent =
-                        "Showing all digital solutions.";
-                } else if (visibleCardCount === 0) {
-                    searchStatus.textContent =
-                        'No results found for "' +
-                        searchInput.value.trim() +
-                        '".';
-                } else {
-                    searchStatus.textContent =
-                        visibleCardCount +
-                        " matching solution" +
-                        (visibleCardCount === 1 ? "" : "s") +
-                        " found.";
-                }
             }
 
-            searchInput.addEventListener(
-                "input",
-                filterSolutions
-            );
+        }
+    );
 
-            clearButton.addEventListener(
-                "click",
-                function () {
-                    searchInput.value = "";
-                    filterSolutions();
-                    searchInput.focus();
-                }
-            );
+    /* ==========================
+       FOOTER YEAR
+    ========================== */
 
-            /*
-             * Allow Escape key to clear search
-             */
-            searchInput.addEventListener(
-                "keydown",
-                function (event) {
-                    if (
-                        event.key === "Escape" &&
-                        searchInput.value !== ""
-                    ) {
-                        searchInput.value = "";
-                        filterSolutions();
-                    }
-                }
-            );
+    document.getElementById(
+        "currentYear"
+    ).textContent =
+        new Date().getFullYear();
 
-            /*
-             * Set footer year automatically
-             */
-            document.getElementById(
-                "currentYear"
-            ).textContent = new Date().getFullYear();
+    filterSolutions();
 
-            filterSolutions();
-        });
+});
     </script>
 
 </body>
